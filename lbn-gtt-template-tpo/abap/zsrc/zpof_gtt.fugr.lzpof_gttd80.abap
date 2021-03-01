@@ -30,6 +30,7 @@ CLASS lcl_ctp_sender DEFINITION
 
     TYPES: BEGIN OF ts_idoc_data,
              control      TYPE /saptrx/bapi_trk_control_tab,
+             info         TYPE /saptrx/bapi_trk_info_tab,
              tracking_id  TYPE /saptrx/bapi_trk_trkid_tab,
              exp_event    TYPE /saptrx/bapi_trk_ee_tab,
              trxserv      TYPE /saptrx/trxserv,
@@ -185,7 +186,8 @@ CLASS lcl_ctp_sender IMPLEMENTATION.
     DATA: lt_bapiret    TYPE bapiret2_t.
 
     LOOP AT mt_idoc_data ASSIGNING FIELD-SYMBOL(<ls_idoc_data>).
-      CALL METHOD zcl_gtt_sof_upd_xtp_references=>send_idoc_ehpost01
+*      CALL METHOD zcl_gtt_sof_upd_xtp_references=>send_idoc_ehpost01
+      CALL METHOD /saptrx/cl_send_idocs=>send_idoc_ehpost01
         EXPORTING
           it_control      = <ls_idoc_data>-control
           it_tracking_id  = <ls_idoc_data>-tracking_id
@@ -193,6 +195,7 @@ CLASS lcl_ctp_sender IMPLEMENTATION.
           is_trxserv      = <ls_idoc_data>-trxserv
           iv_appsys       = <ls_idoc_data>-appsys
           it_appobj_ctabs = <ls_idoc_data>-appobj_ctabs
+          it_info         = <ls_idoc_data>-info
         IMPORTING
           et_bapireturn   = lt_bapiret.
 
