@@ -3322,10 +3322,10 @@ CLASS lcl_bo_reader_sh_header IMPLEMENTATION.
 
   METHOD fill_header_from_vtts.
     TYPES: BEGIN OF ts_stop_id,
-             stopid  TYPE zgtt_stopid,
-             stopcnt TYPE zgtt_stopcnt,
-             loctype TYPE zgtt_loctype,
-             locid   TYPE zgtt_locid,
+             stopid  TYPE lif_app_types=>tv_stopid,
+             stopcnt TYPE lif_app_types=>tv_stopcnt,
+             loctype TYPE lif_app_types=>tv_loctype,
+             locid   TYPE lif_app_types=>tv_locid,
            END OF ts_stop_id.
 
     DATA(lv_tknum) = CONV tknum( lcl_tools=>get_field_of_structure(
